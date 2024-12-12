@@ -111,6 +111,9 @@ public class PositionEntity {
         Map<Date, PriceVO> priceRecords = apiService.queryPrice(instrumentId, this.openDate, this.closeDate);
         PriceVO priceVO = priceRecords.get(date);
 
+        if (priceVO == null) {
+            return BigDecimal.ZERO;
+        }
         return priceVO.getPrice();
     }
 
@@ -122,6 +125,9 @@ public class PositionEntity {
         Map<Date, FxRateVO> fxRateRecords = apiService.queryFxRate(this.instrumentCurrency, TARGET_CURRENCY, this.openDate, this.closeDate);
         FxRateVO fxRateVO = fxRateRecords.get(date);
 
+        if (fxRateVO == null) {
+            return BigDecimal.ZERO;
+        }
         return fxRateVO.getRate();
     }
 
@@ -186,7 +192,7 @@ public class PositionEntity {
 
     private BigDecimal calculateReturnPerPeriodPercentage(Date date, PerformativApiService apiService) {
         BigDecimal valueStart = this.calculateValueStart(date, apiService);
-        if (Objects.equals(valueStart, BigDecimal.ZERO)) {
+        if (BigDecimal.ZERO.compareTo(valueStart) == 0) {
             return BigDecimal.ZERO;
         }
 
