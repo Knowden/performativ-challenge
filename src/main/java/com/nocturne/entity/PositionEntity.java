@@ -72,6 +72,7 @@ public class PositionEntity {
                 .IsOpen(calculateIsOpen(date))
                 .Price(calculatePrice(date, apiService))
                 .Value(calculateValue(date, apiService))
+                .ValueStart(calculateValueStart(date, apiService))
                 .ReturnPerPeriod(calculateReturnPerPeriod(date, apiService))
                 .ReturnPerPeriodPercentage(calculateReturnPerPeriodPercentage(date, apiService))
                 .build();

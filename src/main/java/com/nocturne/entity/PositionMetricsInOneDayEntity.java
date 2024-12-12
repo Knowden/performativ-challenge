@@ -20,6 +20,8 @@ public class PositionMetricsInOneDayEntity {
 
     private BigDecimal Value;
 
+    private BigDecimal ValueStart;
+
     private BigDecimal ReturnPerPeriod;
 
     private BigDecimal ReturnPerPeriodPercentage;
