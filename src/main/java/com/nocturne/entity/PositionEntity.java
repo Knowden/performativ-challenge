@@ -156,7 +156,7 @@ public class PositionEntity {
             valueEnd = calculateCloseValue(date, apiService);
         }
 
-        return valueEnd.min(valueStart);
+        return valueEnd.subtract(valueStart);
     }
 
     private BigDecimal calculateValueStart(Date date, PerformativApiService apiService) {
@@ -165,12 +165,14 @@ public class PositionEntity {
             valueStart = calculateValue(date, apiService);
         } else if (Objects.equals(date, openDate)) {
             valueStart = calculateOpenValue(date, apiService);
-        } else {
+        } else if (date.after(openDate) && date.after(START_DATE)) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             calendar.add(Calendar.DAY_OF_MONTH, -1);
             Date yesterday = calendar.getTime();
             valueStart = calculateValue(yesterday, apiService);
+        } else {
+            return BigDecimal.ZERO;
         }
         return valueStart;
     }
@@ -197,6 +199,6 @@ public class PositionEntity {
             return BigDecimal.ZERO;
         }
 
-        return calculateReturnPerPeriod(date, apiService).divide(valueStart, RoundingMode.CEILING);
+        return calculateReturnPerPeriod(date, apiService).divide(valueStart, 7, RoundingMode.CEILING);
     }
 }

@@ -46,7 +46,7 @@ public class Main {
 
         BasketMetricsEntity basketMetrics = new BasketMetricsEntity(new ArrayList<>(positionMetricsMap.values()));
 
-        MetricsResultEntity metricsResult = new MetricsResultEntity(positionMetricsMap, basketMetrics, dates);
+        MetricsResultEntity metricsResult = new MetricsResultEntity(positionMetricsMap, basketMetrics);
         System.out.println(JSON.toJSONString(metricsResult));
     }
 

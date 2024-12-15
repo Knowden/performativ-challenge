@@ -85,6 +85,6 @@ public class BasketMetricsEntity {
             return BigDecimal.ZERO;
         }
 
-        return returnPerPeriod.divide(valueStart, RoundingMode.CEILING);
+        return returnPerPeriod.divide(valueStart, 7, RoundingMode.CEILING);
     }
 }
